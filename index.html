@@ -15,6 +15,7 @@
     --accent: #6366f1;
     --accent2: #a78bfa;
     --accent3: #34d399;
+    --accent4: #f59e0b;
     --text: #e2e8f0;
     --text-dim: #94a3b8;
     --border: #1e293b;
@@ -272,7 +273,7 @@
   }
 
   .timeline-card.expanded .description {
-    max-height: 300px;
+    max-height: 500px;
     margin-top: 0.75rem;
   }
 
@@ -343,6 +344,13 @@
 
   .sub-role .dates {
     font-size: 0.8rem;
+  }
+
+  .sub-role .sub-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+    line-height: 1.5;
   }
 
   /* Education */
@@ -422,7 +430,7 @@
   }
 
   .edu-card.visible .gpa-ring .fill {
-    stroke-dashoffset: 16.3; /* 163 - (3.9/4.0 * 163) */
+    stroke-dashoffset: 16.3;
   }
 
   .gpa-label {
@@ -505,7 +513,8 @@
 
   .arc-svg {
     width: 100%;
-    height: 280px;
+    min-width: 900px;
+    height: 300px;
   }
 
   .arc-svg text {
@@ -514,8 +523,12 @@
     font-size: 11px;
   }
 
-  .arc-svg .year-label { font-size: 10px; fill: #64748b; }
-  .arc-svg .company-label { font-size: 11px; font-weight: 500; }
+  .arc-svg .year-label { font-size: 9px; fill: #64748b; }
+  .arc-svg .company-label { font-size: 9.5px; font-weight: 500; }
+
+  .arc-svg .company-band:hover { opacity: 0.9; }
+  .arc-svg .role-dot { cursor: pointer; }
+  .arc-svg .role-dot:hover { r: 8; }
 
   /* Interests */
   .interests {
@@ -619,6 +632,33 @@
     margin-top: -1.5rem;
     margin-bottom: 1.5rem;
   }
+
+  /* Era divider */
+  .era-divider {
+    text-align: center;
+    margin: 2rem 0 1.5rem;
+    position: relative;
+  }
+  .era-divider span {
+    background: var(--bg);
+    padding: 0 1rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent4);
+    position: relative;
+    z-index: 1;
+  }
+  .era-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent4), transparent);
+    opacity: 0.3;
+  }
 </style>
 </head>
 <body>
@@ -634,12 +674,12 @@
 <!-- Stats -->
 <div class="stats-bar">
   <div class="stat" data-animate>
-    <div class="stat-number" data-count="40">0</div>
+    <div class="stat-number" data-count="38">0</div>
     <div class="stat-label">Years in Tech</div>
   </div>
   <div class="stat" data-animate>
-    <div class="stat-number" data-count="6">0</div>
-    <div class="stat-label">Companies</div>
+    <div class="stat-number" data-count="9">0</div>
+    <div class="stat-label">Organizations</div>
   </div>
   <div class="stat" data-animate>
     <div class="stat-number" data-count="2">0</div>
@@ -658,90 +698,137 @@
     Career Arc
   </div>
   <div class="arc-container">
-    <svg class="arc-svg" viewBox="0 0 1000 280" preserveAspectRatio="xMidYMid meet">
+    <svg class="arc-svg" viewBox="0 0 1100 300" preserveAspectRatio="xMidYMid meet">
       <!-- Grid lines -->
-      <line x1="60" y1="220" x2="960" y2="220" stroke="#1e293b" stroke-width="1"/>
-      <line x1="60" y1="170" x2="960" y2="170" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
-      <line x1="60" y1="120" x2="960" y2="120" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
-      <line x1="60" y1="70" x2="960" y2="70" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+      <line x1="70" y1="230" x2="1060" y2="230" stroke="#1e293b" stroke-width="1"/>
+      <line x1="70" y1="185" x2="1060" y2="185" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+      <line x1="70" y1="140" x2="1060" y2="140" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+      <line x1="70" y1="95" x2="1060" y2="95" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+      <line x1="70" y1="50" x2="1060" y2="50" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
 
       <!-- Y-axis labels -->
-      <text x="8" y="224" class="year-label">IC</text>
-      <text x="8" y="174" class="year-label">Senior</text>
-      <text x="8" y="124" class="year-label">Principal</text>
-      <text x="8" y="74" class="year-label">Fellow</text>
+      <text x="6" y="234" class="year-label">IC</text>
+      <text x="6" y="189" class="year-label">Senior</text>
+      <text x="6" y="144" class="year-label">Principal</text>
+      <text x="6" y="99" class="year-label">Director</text>
+      <text x="6" y="54" class="year-label">Fellow</text>
 
-      <!-- Company bands -->
+      <!-- CMU: Sep 1987 - Mar 2000 (with consulting to 2000) -->
+      <rect x="80" y="120" width="280" height="110" rx="6" fill="rgba(245,158,11,0.06)" stroke="rgba(245,158,11,0.2)" stroke-width="1" class="company-band">
+        <title>Carnegie Mellon (1987-2000)</title>
+      </rect>
+      <text x="220" y="255" text-anchor="middle" class="company-label" fill="#f59e0b">Carnegie Mellon</text>
+      <text x="220" y="268" text-anchor="middle" class="year-label">87-00</text>
+      <!-- Research Programmer -->
+      <circle cx="110" cy="230" r="4" fill="#f59e0b" opacity="0.6" class="role-dot">
+        <title>Research Programmer (1987-1991)</title>
+      </circle>
+      <!-- Senior Research Programmer -->
+      <circle cx="175" cy="185" r="5" fill="#f59e0b" opacity="0.7" class="role-dot">
+        <title>Senior Research Programmer (1991-1995)</title>
+      </circle>
+      <!-- Project Scientist -->
+      <circle cx="280" cy="140" r="6" fill="#f59e0b" opacity="0.85" class="role-dot">
+        <title>Project Scientist (1995-2000)</title>
+      </circle>
+
+      <!-- iConverse: Mar 2000 - Dec 2002 -->
+      <rect x="375" y="120" width="75" height="110" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1" class="company-band">
+        <title>iConverse (2000-2002)</title>
+      </rect>
+      <text x="412" y="255" text-anchor="middle" class="company-label" fill="#818cf8">iConverse</text>
+      <text x="412" y="268" text-anchor="middle" class="year-label">00-02</text>
+      <circle cx="412" cy="140" r="5" fill="#818cf8" opacity="0.8" class="role-dot">
+        <title>Speech Architect (2000-2002)</title>
+      </circle>
+
+      <!-- InfoClarus: Jan 2002 - Dec 2003 -->
+      <rect x="460" y="120" width="55" height="110" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1" class="company-band">
+        <title>InfoClarus (2002-2003)</title>
+      </rect>
+      <text x="487" y="255" text-anchor="middle" class="company-label" fill="#818cf8">InfoClarus</text>
+      <text x="487" y="268" text-anchor="middle" class="year-label">02-03</text>
+      <circle cx="487" cy="140" r="5" fill="#818cf8" opacity="0.8" class="role-dot">
+        <title>Principal Engineer (2002-2003)</title>
+      </circle>
+
+      <!-- SiteScape: Jan 2004 - Nov 2005 -->
+      <rect x="525" y="120" width="55" height="110" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1" class="company-band">
+        <title>SiteScape (2004-2005)</title>
+      </rect>
+      <text x="552" y="255" text-anchor="middle" class="company-label" fill="#818cf8">SiteScape</text>
+      <text x="552" y="268" text-anchor="middle" class="year-label">04-05</text>
+      <circle cx="552" cy="140" r="5" fill="#818cf8" opacity="0.8" class="role-dot">
+        <title>Principal Engineer (2004-2005)</title>
+      </circle>
+
       <!-- Soliloquy: Nov 2005 - Jan 2007 -->
-      <rect x="80" y="100" width="70" height="120" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1">
+      <rect x="590" y="75" width="45" height="155" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1" class="company-band">
         <title>Soliloquy Learning (2005-2007)</title>
       </rect>
-      <text x="115" y="245" text-anchor="middle" class="company-label" fill="#a78bfa">Soliloquy</text>
-      <text x="115" y="258" text-anchor="middle" class="year-label">05-07</text>
-      <!-- Role dot -->
-      <circle cx="115" cy="120" r="6" fill="#6366f1" opacity="0.9">
-        <title>Director, Speech Engineering</title>
+      <text x="612" y="255" text-anchor="middle" class="company-label" fill="#a78bfa">Soliloquy</text>
+      <text x="612" y="268" text-anchor="middle" class="year-label">05-07</text>
+      <circle cx="612" cy="95" r="5" fill="#a78bfa" opacity="0.85" class="role-dot">
+        <title>Director, Speech Engineering (2005-2007)</title>
       </circle>
 
       <!-- Vlingo: Jan 2007 - Jun 2012 -->
-      <rect x="170" y="100" width="200" height="120" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1">
+      <rect x="645" y="120" width="120" height="110" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1" class="company-band">
         <title>Vlingo (2007-2012)</title>
       </rect>
-      <text x="270" y="245" text-anchor="middle" class="company-label" fill="#a78bfa">Vlingo</text>
-      <text x="270" y="258" text-anchor="middle" class="year-label">07-12</text>
-      <circle cx="270" cy="120" r="6" fill="#6366f1" opacity="0.9">
-        <title>Principal Software Engineer</title>
+      <text x="705" y="255" text-anchor="middle" class="company-label" fill="#a78bfa">Vlingo</text>
+      <text x="705" y="268" text-anchor="middle" class="year-label">07-12</text>
+      <circle cx="705" cy="140" r="5" fill="#a78bfa" opacity="0.85" class="role-dot">
+        <title>Principal Software Engineer (2007-2012)</title>
       </circle>
 
       <!-- Nuance: Jun 2012 - Nov 2012 -->
-      <rect x="390" y="100" width="40" height="120" rx="6" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1">
+      <rect x="775" y="120" width="25" height="110" rx="4" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1" class="company-band">
         <title>Nuance (2012)</title>
       </rect>
-      <text x="410" y="245" text-anchor="middle" class="company-label" fill="#a78bfa">Nuance</text>
-      <text x="410" y="258" text-anchor="middle" class="year-label">12</text>
-      <circle cx="410" cy="120" r="6" fill="#a78bfa" opacity="0.9">
-        <title>Sr. Principal Software Architect</title>
+      <text x="787" y="255" text-anchor="middle" class="company-label" fill="#a78bfa">Nu.</text>
+      <text x="787" y="268" text-anchor="middle" class="year-label">12</text>
+      <circle cx="787" cy="140" r="4" fill="#a78bfa" opacity="0.8" class="role-dot">
+        <title>Sr. Principal Software Architect (2012)</title>
       </circle>
 
       <!-- CarGurus: Nov 2012 - Jan 2024 -->
-      <rect x="450" y="60" width="380" height="160" rx="6" fill="rgba(52,211,153,0.06)" stroke="rgba(52,211,153,0.2)" stroke-width="1">
+      <rect x="810" y="35" width="170" height="195" rx="6" fill="rgba(52,211,153,0.06)" stroke="rgba(52,211,153,0.2)" stroke-width="1" class="company-band">
         <title>CarGurus (2012-2024)</title>
       </rect>
-      <text x="640" y="245" text-anchor="middle" class="company-label" fill="#34d399">CarGurus</text>
-      <text x="640" y="258" text-anchor="middle" class="year-label">12-24</text>
-      <!-- Senior Architect -->
-      <circle cx="520" cy="170" r="5" fill="#34d399" opacity="0.7">
+      <text x="895" y="255" text-anchor="middle" class="company-label" fill="#34d399">CarGurus</text>
+      <text x="895" y="268" text-anchor="middle" class="year-label">12-24</text>
+      <circle cx="845" cy="185" r="4" fill="#34d399" opacity="0.7" class="role-dot">
         <title>Senior Architect (2012-2017)</title>
       </circle>
-      <!-- Senior Principal Architect -->
-      <circle cx="640" cy="120" r="5" fill="#34d399" opacity="0.8">
+      <circle cx="890" cy="140" r="5" fill="#34d399" opacity="0.8" class="role-dot">
         <title>Senior Principal Architect (2017-2018)</title>
       </circle>
-      <!-- Technical Fellow -->
-      <circle cx="750" cy="70" r="7" fill="#34d399" opacity="0.9">
+      <circle cx="940" cy="50" r="7" fill="#34d399" opacity="0.9" class="role-dot">
         <title>Technical Fellow (2018-2024)</title>
       </circle>
 
-      <!-- Career progression line -->
-      <polyline points="115,120 270,120 410,120 520,170 640,120 750,70 920,170"
-        fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-        stroke-dasharray="1200" stroke-dashoffset="1200" class="career-line"/>
-
       <!-- Marr Labs: Mar 2024 - Present -->
-      <rect x="850" y="140" width="100" height="80" rx="6" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.4)" stroke-width="1.5">
+      <rect x="995" y="155" width="55" height="75" rx="6" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.4)" stroke-width="1.5" class="company-band">
         <title>Marr Labs (2024-Present)</title>
       </rect>
-      <text x="900" y="245" text-anchor="middle" class="company-label" fill="#34d399">Marr Labs</text>
-      <text x="900" y="258" text-anchor="middle" class="year-label">24-now</text>
-      <circle cx="920" cy="170" r="7" fill="#34d399" stroke="#34d399" stroke-width="3" opacity="0.9">
+      <text x="1022" y="255" text-anchor="middle" class="company-label" fill="#34d399">Marr Labs</text>
+      <text x="1022" y="268" text-anchor="middle" class="year-label">24-now</text>
+      <circle cx="1022" cy="185" r="6" fill="#34d399" stroke="#34d399" stroke-width="3" opacity="0.9" class="role-dot">
         <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
         <title>Senior Engineer (2024-Present)</title>
       </circle>
 
+      <!-- Career progression line -->
+      <polyline points="110,230 175,185 280,140 412,140 487,140 552,140 612,95 705,140 787,140 845,185 890,140 940,50 1022,185"
+        fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+        stroke-dasharray="1500" stroke-dashoffset="1500" class="career-line"/>
+
       <defs>
         <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#6366f1"/>
-          <stop offset="50%" stop-color="#a78bfa"/>
+          <stop offset="0%" stop-color="#f59e0b"/>
+          <stop offset="30%" stop-color="#6366f1"/>
+          <stop offset="60%" stop-color="#a78bfa"/>
           <stop offset="100%" stop-color="#34d399"/>
         </linearGradient>
       </defs>
@@ -759,12 +846,12 @@
     <div class="theme-card" data-animate>
       <div class="theme-icon">&#x1F399;</div>
       <h3>Speech &amp; Voice</h3>
-      <p>From CMU Sphinx to Vlingo to Marr Labs &mdash; a career thread spanning decades of speech technology evolution.</p>
+      <p>From CMU Sphinx to iConverse to Vlingo to Marr Labs &mdash; a career thread spanning nearly four decades of speech technology evolution.</p>
     </div>
     <div class="theme-card" data-animate>
       <div class="theme-icon">&#x2699;</div>
       <h3>Scalable Systems</h3>
-      <p>Building highly scalable, reliable infrastructure at every stop &mdash; from speech servers to platform services at CarGurus.</p>
+      <p>Building highly scalable infrastructure at every stop &mdash; from speech servers and telephony bridges to platform services at CarGurus.</p>
     </div>
     <div class="theme-card" data-animate>
       <div class="theme-icon">&#x1F916;</div>
@@ -798,7 +885,7 @@
           <span class="skill-tag">Speech AI</span>
           <span class="skill-tag">LLMs</span>
         </div>
-        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 12%"></div></div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 7%"></div></div>
       </div>
     </div>
 
@@ -831,7 +918,7 @@
           <span class="skill-tag">Git</span>
           <span class="skill-tag">Architecture</span>
         </div>
-        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 100%"></div></div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 88%"></div></div>
       </div>
     </div>
 
@@ -843,7 +930,7 @@
         <div class="dates">Jun 2012 &ndash; Nov 2012 &middot; 6 mos</div>
         <div class="location-tag">Cambridge, MA</div>
         <div class="description">Bringing the good stuff from Vlingo to Nuance.</div>
-        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 5%"></div></div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 4%"></div></div>
       </div>
     </div>
 
@@ -860,7 +947,7 @@
           <span class="skill-tag">Java</span>
           <span class="skill-tag">Speech</span>
         </div>
-        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 49%"></div></div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 43%"></div></div>
       </div>
     </div>
 
@@ -871,13 +958,106 @@
         <div class="role">Director, Speech Engineering</div>
         <div class="dates">Nov 2005 &ndash; Jan 2007 &middot; 1 yr 3 mos</div>
         <div class="location-tag">Waltham, MA</div>
-        <div class="description">Managed the speech group. Created and evaluated UK English acoustic models. Built SphinxTrain acoustic model training infrastructure using Python. Participated as a developer in a consumer release of the reading tutor.</div>
+        <div class="description">Managed the speech group. Created and evaluated UK English acoustic models for a shipping UK release. Created SphinxTrain acoustic model training infrastructure using Python. Participated as a developer in a consumer release of the reading tutor.</div>
         <div class="skills-tags">
           <span class="skill-tag">Acoustic Modeling</span>
           <span class="skill-tag">Python</span>
           <span class="skill-tag">SphinxTrain</span>
         </div>
-        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 11%"></div></div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 10%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">SiteScape</div>
+        <div class="role">Principal Engineer</div>
+        <div class="dates">Jan 2004 &ndash; Nov 2005 &middot; 1 yr 11 mos</div>
+        <div class="location-tag">Maynard, MA</div>
+        <div class="description">Lead engineer for voice conferencing in a real-time collaboration product (Jabber/XMPP based) integrating multiple chat clients with desktop sharing and teleconferencing. Developed a 500 phone line (20 T1) voice bridge with IVR menus, in/out dialing, conference recording under Linux. Extended to incorporate SIP/RTP.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">VoIP</span>
+          <span class="skill-tag">SIP/RTP</span>
+          <span class="skill-tag">XMPP</span>
+          <span class="skill-tag">Telephony</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 15%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">InfoClarus</div>
+        <div class="role">Principal Engineer</div>
+        <div class="dates">Jan 2002 &ndash; Dec 2003 &middot; 2 yrs</div>
+        <div class="location-tag">Waltham, MA</div>
+        <div class="description">Developed the server-side data synchronization component of a web-based mobile email/contact/calendar application for J2ME phones. Bi-directional syncing via Microsoft Exchange (MAPI) and POP3 providers.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Mobile</span>
+          <span class="skill-tag">Exchange/MAPI</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 16%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">iConverse</div>
+        <div class="role">Speech Architect</div>
+        <div class="dates">Mar 2000 &ndash; Dec 2002 &middot; 2 yrs 10 mos</div>
+        <div class="location-tag">Waltham, MA</div>
+        <div class="description">Improved the CMU SPHINX-3 acoustic model training system. Introduced variable topologies across phones and variable densities per state. Managed a group of acoustic modelers. Achieved a 60% reduction in model size without loss of accuracy. Built a turn-key model build/test environment.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">Acoustic Modeling</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SPHINX-3</span>
+          <span class="skill-tag">HMMs</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 22%"></div></div>
+      </div>
+    </div>
+
+    <div class="era-divider"><span>Research Era</span></div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot" style="background: var(--accent4); box-shadow: 0 0 12px rgba(245,158,11,0.4);"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company" style="color: var(--accent4);">Carnegie Mellon University</div>
+        <div class="role">Project Scientist &rarr; Research Programmer</div>
+        <div class="dates">Sep 1987 &ndash; Mar 2000 &middot; 12 yrs 7 mos</div>
+        <div class="location-tag">Pittsburgh, PA</div>
+        <div class="sub-roles">
+          <div class="sub-role">
+            <div class="role">Project Scientist</div>
+            <div class="dates">Sep 1995 &ndash; Mar 2000 &middot; 4 yrs 7 mos</div>
+            <div class="sub-desc">Developed the SPHINX-3 acoustic model training system for large vocabulary HMMs. Contributed to CMU DARPA spoken language evaluations beginning in 1993.</div>
+          </div>
+          <div class="sub-role">
+            <div class="role">Senior Research Programmer</div>
+            <div class="dates">Sep 1991 &ndash; Sep 1995 &middot; 4 yrs 1 mo</div>
+            <div class="sub-desc">Integrated CMU Sphinx with NCSA Mosaic browser for voice-controlled browsing. Developed speech compaction algorithms. Optimized SPHINX-II acoustic frame scoring.</div>
+          </div>
+          <div class="sub-role">
+            <div class="role">Research Programmer</div>
+            <div class="dates">Sep 1987 &ndash; Sep 1991 &middot; 4 yrs 1 mo</div>
+          </div>
+        </div>
+        <div class="description">Concurrent consulting (1990&ndash;2000): Developed acoustic models for Fifth Generation Systems deployed in US West directory assistance call centers. Ported SPHINX ASR for the Sun Green Project (predecessor to Java). Designed acoustic modeling for Navy NAWC/TSD. Ported Sphinx to NeXT &mdash; chosen by Steve Jobs for the NeXTSTEP v0.8 rollout. Developed SPHINX DSP frontend for Apple.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">SPHINX</span>
+          <span class="skill-tag">Acoustic Modeling</span>
+          <span class="skill-tag">DARPA</span>
+          <span class="skill-tag">HMMs</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">Python</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 100%"></div></div>
       </div>
     </div>
 
@@ -955,18 +1135,23 @@
   <div class="interests">
     <span class="interest-chip" data-animate>Speech Recognition</span>
     <span class="interest-chip" data-animate>LLM Agents</span>
+    <span class="interest-chip" data-animate>Acoustic Modeling</span>
     <span class="interest-chip" data-animate>Distributed Systems</span>
     <span class="interest-chip" data-animate>Python</span>
     <span class="interest-chip" data-animate>Java</span>
+    <span class="interest-chip" data-animate>C/C++</span>
     <span class="interest-chip" data-animate>AWS</span>
     <span class="interest-chip" data-animate>Kubernetes</span>
     <span class="interest-chip" data-animate>Helm</span>
     <span class="interest-chip" data-animate>PostgreSQL</span>
-    <span class="interest-chip" data-animate>Acoustic Modeling</span>
+    <span class="interest-chip" data-animate>HMMs</span>
+    <span class="interest-chip" data-animate>VoIP / SIP / RTP</span>
+    <span class="interest-chip" data-animate>Telephony</span>
     <span class="interest-chip" data-animate>Platform Architecture</span>
     <span class="interest-chip" data-animate>Voice AI</span>
     <span class="interest-chip" data-animate>SQL</span>
     <span class="interest-chip" data-animate>Data Pipelines</span>
+    <span class="interest-chip" data-animate>DARPA Evaluations</span>
     <span class="interest-chip" data-animate>System Monitoring</span>
   </div>
 </section>
