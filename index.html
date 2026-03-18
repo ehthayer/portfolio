@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Thayer - Career Journey</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a1a;
+    --card-bg: #12122a;
+    --accent: #6366f1;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --border: #1e293b;
+    --glow: rgba(99, 102, 241, 0.3);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(99,102,241,0.08) 0%, transparent 50%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1, #a78bfa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .subtitle {
+    font-size: 1.4rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .location {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    color: var(--accent);
+    font-size: 1.5rem;
+    z-index: 1;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 1;
+    margin-top: -4rem;
+  }
+
+  .stat {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .stat.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat-number {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.25rem;
+  }
+
+  /* Section titles */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-title .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease;
+    cursor: pointer;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -3rem;
+    top: 1.5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--glow);
+    z-index: 2;
+    transition: transform 0.3s;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    transform: scale(1.5);
+  }
+
+  .timeline-item.current .timeline-dot {
+    background: var(--accent3);
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.5);
+    animation: dotPulse 2s infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(52, 211, 153, 0.5); }
+    50% { box-shadow: 0 0 24px rgba(52, 211, 153, 0.8); }
+  }
+
+  .timeline-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .timeline-card .company {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent2);
+  }
+
+  .timeline-card .role {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+
+  .timeline-card .dates {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  .timeline-card .location-tag {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    opacity: 0.7;
+  }
+
+  .timeline-card .description {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.4s ease;
+  }
+
+  .timeline-card.expanded .description {
+    max-height: 300px;
+    margin-top: 0.75rem;
+  }
+
+  .timeline-card .skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .timeline-card.expanded .skills-tags {
+    max-height: 100px;
+  }
+
+  .skill-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--accent2);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+  }
+
+  .duration-bar {
+    margin-top: 0.75rem;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(99, 102, 241, 0.1);
+    overflow: hidden;
+  }
+
+  .duration-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    width: 0;
+    transition: width 1.5s ease;
+  }
+
+  .timeline-item.visible .duration-bar-fill {
+    width: var(--duration);
+  }
+
+  /* Sub-roles */
+  .sub-roles {
+    margin-top: 0.75rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .timeline-card.expanded .sub-roles {
+    max-height: 500px;
+  }
+
+  .sub-role {
+    padding: 0.5rem 0;
+  }
+
+  .sub-role .role {
+    font-size: 0.9rem;
+  }
+
+  .sub-role .dates {
+    font-size: 0.8rem;
+  }
+
+  /* Education */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .edu-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .edu-card:hover {
+    border-color: var(--accent3);
+    box-shadow: 0 4px 24px rgba(52, 211, 153, 0.15);
+  }
+
+  .edu-card .school {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--accent3);
+  }
+
+  .edu-card .degree {
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+  }
+
+  .edu-card .year {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  .edu-card .note {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .gpa-ring {
+    width: 60px;
+    height: 60px;
+    margin-top: 0.75rem;
+    position: relative;
+  }
+
+  .gpa-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+  .gpa-ring circle {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .gpa-ring .bg { stroke: var(--border); }
+
+  .gpa-ring .fill {
+    stroke: var(--accent3);
+    stroke-dasharray: 163;
+    stroke-dashoffset: 163;
+    transition: stroke-dashoffset 1.5s ease;
+  }
+
+  .edu-card.visible .gpa-ring .fill {
+    stroke-dashoffset: 16.3; /* 163 - (3.9/4.0 * 163) */
+  }
+
+  .gpa-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent3);
+  }
+
+  /* Achievements */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .achievement-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s ease;
+  }
+
+  .achievement-card.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .achievement-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+  }
+
+  .achievement-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .achievement-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .achievement-card p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .achievement-card .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .badge.award { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+  .badge.publication { background: rgba(99, 102, 241, 0.15); color: var(--accent2); }
+  .badge.patent { background: rgba(52, 211, 153, 0.15); color: var(--accent3); }
+
+  /* Career Arc SVG Chart */
+  .arc-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+  }
+
+  .arc-svg {
+    width: 100%;
+    height: 280px;
+  }
+
+  .arc-svg text {
+    font-family: 'Inter', sans-serif;
+    fill: var(--text-dim);
+    font-size: 11px;
+  }
+
+  .arc-svg .year-label { font-size: 10px; fill: #64748b; }
+  .arc-svg .company-label { font-size: 11px; font-weight: 500; }
+
+  /* Interests */
+  .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .interest-chip {
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+
+  .interest-chip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .interest-chip:hover {
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.1);
+  }
+
+  /* Theme areas */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .theme-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
+    .stats-bar { flex-wrap: wrap; gap: 1.5rem; }
+  }
+
+  .theme-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+  }
+
+  .theme-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .theme-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.1);
+  }
+
+  .theme-card .theme-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .theme-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--accent2);
+  }
+
+  .theme-card p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  /* Click hint */
+  .click-hint {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    opacity: 0.5;
+    margin-top: -1.5rem;
+    margin-bottom: 1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Eric Thayer</h1>
+  <div class="subtitle">Senior Engineer @ Marr Labs &middot; Technical Fellow</div>
+  <div class="location">Sutton, Massachusetts</div>
+  <div class="scroll-hint">&darr;</div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat" data-animate>
+    <div class="stat-number" data-count="40">0</div>
+    <div class="stat-label">Years in Tech</div>
+  </div>
+  <div class="stat" data-animate>
+    <div class="stat-number" data-count="6">0</div>
+    <div class="stat-label">Companies</div>
+  </div>
+  <div class="stat" data-animate>
+    <div class="stat-number" data-count="2">0</div>
+    <div class="stat-label">Publications</div>
+  </div>
+  <div class="stat" data-animate>
+    <div class="stat-number" data-count="1">0</div>
+    <div class="stat-label">Patent</div>
+  </div>
+</div>
+
+<!-- Career Arc -->
+<section class="section">
+  <div class="section-title">
+    <span class="icon" style="background: rgba(99,102,241,0.15);">&#x1F4CA;</span>
+    Career Arc
+  </div>
+  <div class="arc-container">
+    <svg class="arc-svg" viewBox="0 0 1000 280" preserveAspectRatio="xMidYMid meet">
+      <!-- Grid lines -->
+      <line x1="60" y1="220" x2="960" y2="220" stroke="#1e293b" stroke-width="1"/>
+      <line x1="60" y1="170" x2="960" y2="170" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+      <line x1="60" y1="120" x2="960" y2="120" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+      <line x1="60" y1="70" x2="960" y2="70" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="4"/>
+
+      <!-- Y-axis labels -->
+      <text x="8" y="224" class="year-label">IC</text>
+      <text x="8" y="174" class="year-label">Senior</text>
+      <text x="8" y="124" class="year-label">Principal</text>
+      <text x="8" y="74" class="year-label">Fellow</text>
+
+      <!-- Company bands -->
+      <!-- Soliloquy: Nov 2005 - Jan 2007 -->
+      <rect x="80" y="100" width="70" height="120" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1">
+        <title>Soliloquy Learning (2005-2007)</title>
+      </rect>
+      <text x="115" y="245" text-anchor="middle" class="company-label" fill="#a78bfa">Soliloquy</text>
+      <text x="115" y="258" text-anchor="middle" class="year-label">05-07</text>
+      <!-- Role dot -->
+      <circle cx="115" cy="120" r="6" fill="#6366f1" opacity="0.9">
+        <title>Director, Speech Engineering</title>
+      </circle>
+
+      <!-- Vlingo: Jan 2007 - Jun 2012 -->
+      <rect x="170" y="100" width="200" height="120" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1">
+        <title>Vlingo (2007-2012)</title>
+      </rect>
+      <text x="270" y="245" text-anchor="middle" class="company-label" fill="#a78bfa">Vlingo</text>
+      <text x="270" y="258" text-anchor="middle" class="year-label">07-12</text>
+      <circle cx="270" cy="120" r="6" fill="#6366f1" opacity="0.9">
+        <title>Principal Software Engineer</title>
+      </circle>
+
+      <!-- Nuance: Jun 2012 - Nov 2012 -->
+      <rect x="390" y="100" width="40" height="120" rx="6" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1">
+        <title>Nuance (2012)</title>
+      </rect>
+      <text x="410" y="245" text-anchor="middle" class="company-label" fill="#a78bfa">Nuance</text>
+      <text x="410" y="258" text-anchor="middle" class="year-label">12</text>
+      <circle cx="410" cy="120" r="6" fill="#a78bfa" opacity="0.9">
+        <title>Sr. Principal Software Architect</title>
+      </circle>
+
+      <!-- CarGurus: Nov 2012 - Jan 2024 -->
+      <rect x="450" y="60" width="380" height="160" rx="6" fill="rgba(52,211,153,0.06)" stroke="rgba(52,211,153,0.2)" stroke-width="1">
+        <title>CarGurus (2012-2024)</title>
+      </rect>
+      <text x="640" y="245" text-anchor="middle" class="company-label" fill="#34d399">CarGurus</text>
+      <text x="640" y="258" text-anchor="middle" class="year-label">12-24</text>
+      <!-- Senior Architect -->
+      <circle cx="520" cy="170" r="5" fill="#34d399" opacity="0.7">
+        <title>Senior Architect (2012-2017)</title>
+      </circle>
+      <!-- Senior Principal Architect -->
+      <circle cx="640" cy="120" r="5" fill="#34d399" opacity="0.8">
+        <title>Senior Principal Architect (2017-2018)</title>
+      </circle>
+      <!-- Technical Fellow -->
+      <circle cx="750" cy="70" r="7" fill="#34d399" opacity="0.9">
+        <title>Technical Fellow (2018-2024)</title>
+      </circle>
+
+      <!-- Career progression line -->
+      <polyline points="115,120 270,120 410,120 520,170 640,120 750,70 920,170"
+        fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+        stroke-dasharray="1200" stroke-dashoffset="1200" class="career-line"/>
+
+      <!-- Marr Labs: Mar 2024 - Present -->
+      <rect x="850" y="140" width="100" height="80" rx="6" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.4)" stroke-width="1.5">
+        <title>Marr Labs (2024-Present)</title>
+      </rect>
+      <text x="900" y="245" text-anchor="middle" class="company-label" fill="#34d399">Marr Labs</text>
+      <text x="900" y="258" text-anchor="middle" class="year-label">24-now</text>
+      <circle cx="920" cy="170" r="7" fill="#34d399" stroke="#34d399" stroke-width="3" opacity="0.9">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        <title>Senior Engineer (2024-Present)</title>
+      </circle>
+
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#6366f1"/>
+          <stop offset="50%" stop-color="#a78bfa"/>
+          <stop offset="100%" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+</section>
+
+<!-- Career Themes -->
+<section class="section">
+  <div class="section-title">
+    <span class="icon" style="background: rgba(167,139,250,0.15);">&#x1F9E0;</span>
+    Career Themes
+  </div>
+  <div class="theme-grid">
+    <div class="theme-card" data-animate>
+      <div class="theme-icon">&#x1F399;</div>
+      <h3>Speech &amp; Voice</h3>
+      <p>From CMU Sphinx to Vlingo to Marr Labs &mdash; a career thread spanning decades of speech technology evolution.</p>
+    </div>
+    <div class="theme-card" data-animate>
+      <div class="theme-icon">&#x2699;</div>
+      <h3>Scalable Systems</h3>
+      <p>Building highly scalable, reliable infrastructure at every stop &mdash; from speech servers to platform services at CarGurus.</p>
+    </div>
+    <div class="theme-card" data-animate>
+      <div class="theme-icon">&#x1F916;</div>
+      <h3>AI + LLMs</h3>
+      <p>Now at the frontier: getting speech and LLM agents to play well together at Marr Labs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Experience Timeline -->
+<section class="section">
+  <div class="section-title">
+    <span class="icon" style="background: rgba(99,102,241,0.15);">&#x1F4BC;</span>
+    Experience
+  </div>
+  <p class="click-hint">Click cards to expand details</p>
+  <div class="timeline">
+
+    <div class="timeline-item current" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">Marr Labs</div>
+        <div class="role">Senior Engineer</div>
+        <div class="dates">Mar 2024 &ndash; Present &middot; 2 yrs 1 mo</div>
+        <div class="location-tag">Remote</div>
+        <div class="description">Getting speech and LLM agents to play well together.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Helm</span>
+          <span class="skill-tag">Speech AI</span>
+          <span class="skill-tag">LLMs</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 12%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">CarGurus</div>
+        <div class="role">Technical Fellow &rarr; Senior Architect</div>
+        <div class="dates">Nov 2012 &ndash; Jan 2024 &middot; 11 yrs 3 mos</div>
+        <div class="location-tag">Boston / Cambridge, MA</div>
+        <div class="sub-roles">
+          <div class="sub-role">
+            <div class="role">Technical Fellow</div>
+            <div class="dates">Jul 2018 &ndash; Jan 2024 &middot; 5 yrs 7 mos</div>
+          </div>
+          <div class="sub-role">
+            <div class="role">Senior Principal Architect</div>
+            <div class="dates">Nov 2017 &ndash; Jul 2018 &middot; 9 mos</div>
+          </div>
+          <div class="sub-role">
+            <div class="role">Senior Architect</div>
+            <div class="dates">Nov 2012 &ndash; Nov 2017 &middot; 5 yrs 1 mo</div>
+          </div>
+        </div>
+        <div class="description">Site features, back-end services and messaging infrastructure, dealer/user support tools, internationalization, system monitoring/alerting, data pipeline.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Kubernetes</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Architecture</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 100%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">Nuance Communications</div>
+        <div class="role">Sr. Principal Software Architect</div>
+        <div class="dates">Jun 2012 &ndash; Nov 2012 &middot; 6 mos</div>
+        <div class="location-tag">Cambridge, MA</div>
+        <div class="description">Bringing the good stuff from Vlingo to Nuance.</div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 5%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">Vlingo</div>
+        <div class="role">Principal Software Engineer</div>
+        <div class="dates">Jan 2007 &ndash; Jun 2012 &middot; 5 yrs 6 mos</div>
+        <div class="location-tag">Cambridge, MA</div>
+        <div class="description">Early hire in the engineering team. Designed and implemented highly scalable, responsive and reliable speech servers and voice platform components.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Speech</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 49%"></div></div>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-animate>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+        <div class="company">Soliloquy Learning</div>
+        <div class="role">Director, Speech Engineering</div>
+        <div class="dates">Nov 2005 &ndash; Jan 2007 &middot; 1 yr 3 mos</div>
+        <div class="location-tag">Waltham, MA</div>
+        <div class="description">Managed the speech group. Created and evaluated UK English acoustic models. Built SphinxTrain acoustic model training infrastructure using Python. Participated as a developer in a consumer release of the reading tutor.</div>
+        <div class="skills-tags">
+          <span class="skill-tag">Acoustic Modeling</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SphinxTrain</span>
+        </div>
+        <div class="duration-bar"><div class="duration-bar-fill" style="--duration: 11%"></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Education -->
+<section class="section">
+  <div class="section-title">
+    <span class="icon" style="background: rgba(52,211,153,0.15);">&#x1F393;</span>
+    Education
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card" data-animate>
+      <div class="school">Carnegie Mellon University</div>
+      <div class="degree">Master's, Software Engineering</div>
+      <div class="year">1991 &ndash; 1995</div>
+      <div class="gpa-ring">
+        <svg viewBox="0 0 60 60">
+          <circle class="bg" cx="30" cy="30" r="26"/>
+          <circle class="fill" cx="30" cy="30" r="26"/>
+        </svg>
+        <span class="gpa-label">3.9</span>
+      </div>
+      <div class="note">Worked full-time while earning the degree (professional degree, not an early exit from a PhD program).</div>
+    </div>
+    <div class="edu-card" data-animate>
+      <div class="school">University of Delaware</div>
+      <div class="degree">Bachelor's, Electrical Engineering</div>
+      <div class="year">Sep 1982 &ndash; May 1986</div>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section class="section">
+  <div class="section-title">
+    <span class="icon" style="background: rgba(234,179,8,0.15);">&#x1F3C6;</span>
+    Achievements
+  </div>
+  <div class="achievements-grid">
+    <div class="achievement-card" data-animate>
+      <div class="achievement-icon">&#x1F3C5;</div>
+      <h3>Allen Newell Award for Research Excellence</h3>
+      <p>Carnegie Mellon School of Computer Science, 1992. Given in recognition of significant contributions to speech recognition.</p>
+      <span class="badge award">Award</span>
+    </div>
+    <div class="achievement-card" data-animate>
+      <div class="achievement-icon">&#x1F4D6;</div>
+      <h3>CMU Sphinx-3 Broadcast News Transcription System</h3>
+      <p>Proceedings of DARPA Speech Workshop, 1997. Description of the CMU system in the DARPA broadcast news speech evaluation.</p>
+      <span class="badge publication">Publication</span>
+    </div>
+    <div class="achievement-card" data-animate>
+      <div class="achievement-icon">&#x1F4D6;</div>
+      <h3>SpeechWear: A Mobile Speech System</h3>
+      <p>Proceedings ICSLP. A system allowing ambulating users to perform data entry and retrieval using a speech interface to a wearable computer.</p>
+      <span class="badge publication">Publication</span>
+    </div>
+    <div class="achievement-card" data-animate>
+      <div class="achievement-icon">&#x1F4DC;</div>
+      <h3>Speech Recognition Tagging Patent</h3>
+      <p>US 20090030688 (Filed 2008). Tagging speech recognition results based on an unstructured language model for mobile communication.</p>
+      <span class="badge patent">Patent</span>
+    </div>
+  </div>
+</section>
+
+<!-- Domain keywords -->
+<section class="section" style="text-align: center;">
+  <div class="section-title" style="justify-content: center;">
+    <span class="icon" style="background: rgba(99,102,241,0.15);">&#x1F30D;</span>
+    Domain Expertise
+  </div>
+  <div class="interests">
+    <span class="interest-chip" data-animate>Speech Recognition</span>
+    <span class="interest-chip" data-animate>LLM Agents</span>
+    <span class="interest-chip" data-animate>Distributed Systems</span>
+    <span class="interest-chip" data-animate>Python</span>
+    <span class="interest-chip" data-animate>Java</span>
+    <span class="interest-chip" data-animate>AWS</span>
+    <span class="interest-chip" data-animate>Kubernetes</span>
+    <span class="interest-chip" data-animate>Helm</span>
+    <span class="interest-chip" data-animate>PostgreSQL</span>
+    <span class="interest-chip" data-animate>Acoustic Modeling</span>
+    <span class="interest-chip" data-animate>Platform Architecture</span>
+    <span class="interest-chip" data-animate>Voice AI</span>
+    <span class="interest-chip" data-animate>SQL</span>
+    <span class="interest-chip" data-animate>Data Pipelines</span>
+    <span class="interest-chip" data-animate>System Monitoring</span>
+  </div>
+</section>
+
+<footer>
+  Generated from LinkedIn profile &middot; linkedin.com/in/ehthayer
+</footer>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('[data-animate], .timeline-item, .edu-card, .achievement-card, .interest-chip, .stat, .theme-card').forEach(el => {
+  observer.observe(el);
+});
+
+// Animated counters
+function animateCounter(el, target) {
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 40));
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(interval);
+    }
+    el.textContent = current;
+  }, 40);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = parseInt(entry.target.dataset.count);
+      animateCounter(entry.target, target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+// Animate career line
+const lineObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.transition = 'stroke-dashoffset 3s ease';
+      entry.target.style.strokeDashoffset = '0';
+      lineObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.career-line').forEach(el => lineObserver.observe(el));
+</script>
+
+</body>
+</html>
